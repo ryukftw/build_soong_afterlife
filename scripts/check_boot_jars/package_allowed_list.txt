@@ -263,6 +263,18 @@ org\.chromium\.arc\..*
 com\.nvidia
 com\.nvidia\..*
 
+# OP adds
+com\.oplus
+com\.oplus\..*
+
+# Lineage adds
+lineageos\.platform
+org\.lineageos\.platform\.internal
+vendor\.lineage\..*
+vendor\.lineage\.health.*
+vendor\.lineage\.livedisplay.*
+vendor\.lineage\.touch.*
+
 # QC adds
 com.qualcomm.qti
 com.quicinc.tcmiface
