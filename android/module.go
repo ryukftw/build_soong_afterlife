@@ -516,9 +516,6 @@ type commonProperties struct {
 	// trace, but influence modules among products.
 	SoongConfigTrace     soongConfigTrace `blueprint:"mutated"`
 	SoongConfigTraceHash string           `blueprint:"mutated"`
-
-    // The team (defined by the owner/vendor) who owns the property.
-	Team *string `android:"path"`
 }
 
 type distProperties struct {
@@ -530,12 +527,6 @@ type distProperties struct {
 	// distribution directory (default: $OUT/dist, configurable with $DIST_DIR)
 	Dists []Dist `android:"arch_variant"`
 }
-
-type TeamDepTagType struct {
-	blueprint.BaseDependencyTag
-}
-
-var teamDepTag = TeamDepTagType{}
 
 // CommonTestOptions represents the common `test_options` properties in
 // Android.bp.
@@ -987,12 +978,6 @@ func (m *ModuleBase) ComponentDepsMutator(BottomUpMutatorContext) {}
 
 func (m *ModuleBase) DepsMutator(BottomUpMutatorContext) {}
 
-func (m *ModuleBase) baseDepsMutator(ctx BottomUpMutatorContext) {
-	if m.Team() != "" {
-		ctx.AddDependency(ctx.Module(), teamDepTag, m.Team())
-	}
-}
-
 // AddProperties "registers" the provided props
 // each value in props MUST be a pointer to a struct
 func (m *ModuleBase) AddProperties(props ...interface{}) {
@@ -1428,10 +1413,6 @@ func (m *ModuleBase) InstallForceOS() (*OsType, *ArchType) {
 
 func (m *ModuleBase) Owner() string {
 	return String(m.commonProperties.Owner)
-}
-
-func (m *ModuleBase) Team() string {
-	return String(m.commonProperties.Team)
 }
 
 func (m *ModuleBase) setImageVariation(variant string) {
